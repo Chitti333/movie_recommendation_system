@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Movie Recommendation System</h1>
+        <form method="POST" action="/recommend" onsubmit="showLoading()">
+            <div class="form-group">
+                <label for="movie_title">Enter Movie Title:</label>
+                <input type="text" class="form-control" id="movie_title" name="movie_title" placeholder="e.g., Toy Story" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <p>Loading recommendations...</p>
+        </div>
+
+        {% if recommendations %}
+        <h2 class="mt-4">Recommendations for "{{ title }}"</h2>
+        <ul class="list-group mt-3">
+            {% for movie in recommendations %}
+            <li class="list-group-item">{{ movie }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+    </script>
+</body>
+</html>
